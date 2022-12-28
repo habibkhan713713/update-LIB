@@ -1,0 +1,19 @@
+.avatarImg {
+    max-height: 200px;
+    width: auto;
+
+}
+
+.heroSec {
+    display: flex;
+    justify-content: center; 
+}
+.history{
+    display: flex;
+}
+li{
+    list-style: none;
+}
+.carousel-btn{
+    position: relative;
+}
