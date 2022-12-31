@@ -24,6 +24,7 @@ const Profile = ({ username }) => {
     Axios.post("http://localhost:3001/profile", {
       userName: location.state,
     }).then((response) => {
+      console.log(response)
       setFirstName(response.data[0]["first_name"]),
         setLastName(response.data[0]["last_name"]),
         setEmail(response.data[0]["email"]),

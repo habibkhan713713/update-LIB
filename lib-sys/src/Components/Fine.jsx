@@ -7,7 +7,7 @@ export default function Fine(props) {
   return (
     <div>
       <Table />
-      <Finecomp finelist={props} />
+      <Finecomp fineList={props} />
     </div>
   )
 }

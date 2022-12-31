@@ -7,7 +7,7 @@ const cors = require("cors");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "vader1064",
+  password: "7Dinmohabbatin.",
   database: "Library",
 });
 
@@ -30,12 +30,28 @@ app.get("/hello", (req, res) => {
 });
 
 // to get user data from the database and send it to the front end
-// app.get('/profile', (req, res) => {
-//     const sqlProfile = "SELECT * FROM Member";
-//     db.query(sqlProfile, (err, result) => {
-//         res.send(result);
-//     });
-// });
+app.get('/profile', (req, res) => {
+    const sqlProfile = "SELECT * FROM Member";
+    db.query(sqlProfile, (err, result) => {
+        res.send(result);
+    });
+});
+app.get('/fine', (req, res) => {
+    const sqlProfile = "select book.book_id,title as book_name,amount as fine_amount,days_overdue from fine inner join book on fine.book_id=book.book_id where member_id=1;";
+    db.query(sqlProfile, (err, result) => {
+        res.send(result);
+        console.log(result)
+    });
+});
+app.post('/fine', (req, res) => {
+    username = req.body.userName;
+
+  const sqlProfile = "select book.book_id,title,amount,days_overdue from fine inner join book on fine.book_id=book.book_id where member_id=1 ;";
+  db.query(sqlProfile, (err, result) => {
+    res.send(result);
+    console.log(result)
+  });
+});
 
 app.post("/profile", (req, res) => {
   username = req.body.userName;
@@ -61,16 +77,20 @@ app.post("/login", (req, res) => {
   const username = req.body.userName;
   const password = req.body.password;
 
-  const validate = "select username,password from Member";
+  const validate = "select first_name,last_name from member";
 
   db.query(validate, (err, result) => {
-    // app.get("/login", (req, res1) => {
-    //   res1.send(result);
-    // });
+    app.get("/login", (req, res1) => {
+      res1.send(result);
+    });
 
     res.send(result);
   });
 });
+
+
+
+
 
 // app.get('/', (req, res) => {
 
@@ -85,20 +105,20 @@ app.post("/login", (req, res) => {
 //     });
 // });
 
-// app.post('/api/login', (req, res) => {
-//     const username = req.body.userName;
-//     const password = req.body.password;
-//     console.log(username, password);
-//     const sqlLogin = "SELECT * FROM Member WHERE first_name = ? AND last_name = ?";
-//     db.query(sqlLogin, [username, password], (err, result) => {
-//         app.get('/valid', (req, res) => {
-//             console.log(result);
-//             res.send(result);
-//         }
-//         );
-//     });
-// }
-// );
+app.post('/api/login', (req, res) => {
+    const username = req.body.userName;
+    const password = req.body.password;
+    console.log(username, password);
+    const sqlLogin = "SELECT * FROM Member WHERE first_name = ? AND last_name = ?";
+    db.query(sqlLogin, [username, password], (err, result) => {
+        app.get('/valid', (req, res) => {
+            console.log(result);
+            res.send(result);
+        }
+        );
+    });
+}
+);
 
 app.listen(3001, () => {
   console.log("Server is listening on port 3001");
